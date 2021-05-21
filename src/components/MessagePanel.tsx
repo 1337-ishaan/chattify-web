@@ -26,6 +26,7 @@ const MessagePanel = (props: any) => {
 
   useEffect(() => {
     socket.on("private message", messageHandler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usersList]);
 
   const onMessage = (e: any, content: any) => {
@@ -39,8 +40,8 @@ const MessagePanel = (props: any) => {
         content,
         fromSelf: true,
       });
+      setMessageToSend("");
     }
-    setMessageToSend("");
   };
 
   return (
@@ -60,6 +61,7 @@ const MessagePanel = (props: any) => {
         </div>
         <form onSubmit={(e) => onMessage(e, messageToSend)}>
           <input
+            value={messageToSend}
             onChange={(e) => setMessageToSend(e.target.value)}
             type="text"
           />

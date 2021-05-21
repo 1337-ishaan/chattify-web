@@ -3,7 +3,7 @@ import socket from "../socket";
 import "../App.css";
 import MessagePanel from "./MessagePanel";
 
-const Chat = () => {
+const Chat = ({ logoutFunction }: any) => {
   const [usersList, setUsersList]: any = useState([]);
   const [selectedUser, setSelectedUser]: any = useState([]);
 
@@ -40,14 +40,15 @@ const Chat = () => {
       });
     });
 
-    socket.on("disconnect", () => {
-      console.log("disconnected here  ");
-      usersList.forEach((user: any) => {
-        if (user.self) {
-          user.connected = false;
-        }
-      });
-    });
+    // socket.on("disconnect", () => {
+    //   console.log("disconnected here  ");
+    //   usersList.forEach((user: any) => {
+    //     if (user.self) {
+    //       user.connected = false;
+    //     }
+    //   });
+    // });
+    //eslint-disable-next-line
   }, [socket]);
 
   return (
@@ -63,6 +64,7 @@ const Chat = () => {
       </div>
       <div className="right-panel">
         <MessagePanel selectedUser={selectedUser} usersList={usersList} />
+        <button onClick={logoutFunction}>LOGOUT</button>
       </div>
     </>
   );
